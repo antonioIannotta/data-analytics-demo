@@ -1,25 +1,23 @@
 import numpy as np
 import pandas as pd
+import sys
+from utils import movielens_utils
 
 print("Data Analytics Demo")
 
-print("Selezionare il tipo di task del quale effettuare la demo: ")
-task_selection = input("1: Task 1\n2: Task 2\n3: Task 3")
+movie_dataframe = pd.read_csv(sys.argv[1])
+tag_relevance_dataframe = pd.read_csv(sys.argv[2])
+tag_name_dataframe = pd.read_csv(sys.argv[3])
 
-if int(task_selection) == 1:
-    genres = pd.Series(
-        ["Adventure", "Animation", "Children", "Comedy", "Fantasy", "Romance", "Drama", "Action", "Crime",
-         "Horror", "Mistery", "Sci-Fi", "IMAX", "Documentary", "War", "Musical", "Western", "Film-Noir",
-         "(no genres listed)"])
+print("Movie: \n")
+print(movie_dataframe)
+print("\n")
 
-    tag_index_array = []
-    for i in range(1, 1129):
-        tag_index_array.append(str(i))
+print("Relevance: \n")
+print(tag_relevance_dataframe)
+print("\n")
 
-    tag_index_array.append("rating")
-    tags = pd.Series(np.array(tag_index_array))
+#movie_splitted_genre = movielens_utils.movie_with_splitted_genre(movie_dataframe)
+#tag_relevance_movies = movielens_utils.tag_relevance_movies_creation(tag_name_dataframe, tag_relevance_dataframe)
 
-    columns = genres.append(tags)
 
-    task_df = pd.DataFrame(columns=columns)
-    print(task_df)
