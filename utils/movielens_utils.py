@@ -3,13 +3,10 @@ import numpy as np
 
 
 def movie_with_splitted_genre(movie):
-    genres = []
-    for i in range(len(movie.genres)):
-        for x in movie.genres[i].split('|'):
-            if x not in genres:
-                genres.append(x)
+    genres = ["Action", "Adventure", "Animation", "Children's", "Comedy", "Crime", "Documentary", "Drama",
+              "Fantasy", "Film-Noir", "Horror", "Musical", "Mystery", "Romance", "Sci-Fi", "Thriller",
+              "War", "Western", "(no genres listed)"]
 
-    len(genres)
     for x in genres:
         movie[x] = 0
     for i in range(len(movie.genres)):
