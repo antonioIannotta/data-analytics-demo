@@ -13,6 +13,8 @@ def movie_with_splitted_genre(movie):
         for x in movie.genres[i].split('|'):
             movie[x][i] = 1
 
+    movie = movie.drop(columns='genres')
+    movie = movie.drop(columns='title')
     return movie
 
 
