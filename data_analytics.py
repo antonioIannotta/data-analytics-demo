@@ -1,12 +1,11 @@
 import numpy as np
 import pandas as pd
 import sys
-
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import MinMaxScaler
-
 from utils import movielens_utils
 import pickle as pk
+import torch
 
 print("Data Analytics Demo")
 
@@ -52,27 +51,44 @@ print("Scaled dataset")
 print(X)
 
 pca = PCA(n_components=0.70)
-final_df_pca = pca.fit_transform(X)
+X_t = pca.fit_transform(X)
 
 print("PCA result")
-print(final_df_pca.shape)
+print(X_t.shape)
 
 knn_regression = pk.load(open('nd_supervised_models/knn_regression.pkl', "rb"))
-knn_predicted = knn_regression.predict(final_df_pca)
+knn_predicted = knn_regression.predict(X_t)
 print("Prediction with KNN: " + str(knn_predicted))
 
 linear_regression = pk.load(open(open('nd_supervised_models/linear_regression.pkl', "rb")))
-linear_predicted = linear_regression.predict(final_df_pca)
+linear_predicted = linear_regression.predict(X_t)
 print("Prediction with Linear regression: " + str(linear_predicted))
 
 random_forest_regression = pk.load(open(open('nd_supervised_models/random_forest_regression.pkl', "rb")))
-random_predicted = random_forest_regression.predict(final_df_pca)
+random_predicted = random_forest_regression.predict(X_t)
 print("Prediction with Random forest: " + str(random_predicted))
 
 
 print("*******************************************DEEP LEARNING*****************************************")
 
 
+dropout_model = torch.load('./neaural_network/best_model_dropout/data.pkl')
+no_dropout_model = torch.load('./neaural_network/best_model_without_dropout/')
 
+dl_pca = PCA(n_components=0.95)
+X_dl = dl_pca.fit_transform(X)
+
+dropout_pred = dropout_model.predict(dl_pca)
+print("Prediction with dropout: " + str(dropout_pred))
+
+no_dropout_pred = dropout_model.predict(dl_pca)
+print("Prediction without dropout: " + str(no_dropout_pred))
+
+print("******************************************TABNET*************************************************")
+
+tabnet_model = torch.load('./tabnet/model/data.pkl')
+tabnet_pred = tabnet_model.predict(X)
+
+print("Prediction with tabnet model: " + str(tabnet_pred))
 
 
