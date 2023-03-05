@@ -3,9 +3,9 @@ import numpy as np
 
 
 def movie_with_splitted_genre(movie):
-    genres = ["Action", "Adventure", "Animation", "Children's", "Comedy", "Crime", "Documentary", "Drama",
-              "Fantasy", "Film-Noir", "Horror", "Musical", "Mystery", "Romance", "Sci-Fi", "Thriller",
-              "War", "Western", "(no genres listed)"]
+    genres = ['Adventure', 'Animation', 'Children', 'Comedy', 'Fantasy', 'Romance', 
+              'Drama', 'Action', 'Crime', 'Thriller', 'Horror', 'Mystery', 'Sci-Fi', 
+              'IMAX', 'Documentary', 'War', 'Musical', 'Western', 'Film-Noir', '(no genres listed)']
 
     for x in genres:
         movie[x] = 0
@@ -14,8 +14,9 @@ def movie_with_splitted_genre(movie):
             movie[x][i] = 1
 
     movie = movie.drop(columns='genres')
-    movie = movie.drop(columns='title')
-    return movie
+    titles = movie.title
+    #movie = movie.drop(columns='title')
+    return movie, titles
 
 
 def tag_relevance_movies_creation(tag_name_dataframe, tag_relevance_dataframe):
